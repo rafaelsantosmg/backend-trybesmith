@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import ProductControllers from '../controllers/productController';
 import validateJoi from '../middlewares/validateJoi';
-import validateProduct from '../schemas/joiSchemas';
+import { validateProduct } from '../schemas/joiSchemas';
 
 const router = Router();
 
