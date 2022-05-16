@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
+import { Schema } from 'joi';
 
-export default (schemas: any) => (req: Request, res: Response, next: NextFunction) => {
+export default (schemas: Schema) => (req: Request, res: Response, next: NextFunction) => {
   const { error } = schemas.validate(req.body);
   if (error === undefined) return next();
   if (error && error.details[0].type === 'any.required') {
