@@ -5,10 +5,12 @@ import { createToken } from '../utils/token';
 export default class UserController {
   constructor(private userService = new UserService()) { }
 
-  // public getAll = async (_req: Request, res: Response) => {
-  //   const products = await this.productService.getAll();
-  //   return res.status(200).json(products);
-  // };
+  public getUser = async (req: Request, res: Response) => {
+    const user = await this.userService.getUser(req.body);
+    if (user === false) return res.status(401).json({ message: 'Username or password invalid' });
+    const token = createToken(user);
+    return res.status(200).json({ token });
+  };
 
   public create = async (req: Request, res: Response) => {
     const user = await this.userService.create(req.body);

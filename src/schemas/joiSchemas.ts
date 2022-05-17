@@ -11,3 +11,8 @@ export const validateUser = Joi.object({
   level: Joi.number().min(1).required(),
   password: Joi.string().min(8).required(),
 });
+
+export const validateLogin = Joi.object({
+  username: Joi.string().required(),
+  password: Joi.string().required(),
+});

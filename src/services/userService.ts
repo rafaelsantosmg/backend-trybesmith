@@ -9,10 +9,11 @@ export default class ProductService {
     this.model = new UserModel(connection);
   }
 
-  // public async getAll(): Promise<User[]> {
-  //   const users = await this.model.getAll();
-  //   return users;
-  // }
+  public async getUser(user: User): Promise<User[] | boolean> {
+    const findUser = await this.model.getUser(user);
+    if (findUser.length === 0) return false;
+    return findUser;
+  }
 
   public async create(user: User): Promise<User> {
     const result = await this.model.create(user);

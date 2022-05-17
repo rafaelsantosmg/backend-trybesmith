@@ -5,7 +5,7 @@ dotenv.config();
 
 const SECRET_KEY: string = process.env.JWT_SECRET || 'NewSummerJobToTrybe17';
 
-export const createToken = (user: object) => {
+export const createToken = (user: object | boolean) => {
   const token = jwt.sign({ data: user }, SECRET_KEY, {
     expiresIn: '7d',
     algorithm: 'HS256',

@@ -15,7 +15,7 @@ export default class OrdersService {
 
   public async getAll(): Promise<Orders[]> {
     const allOrders = await this.orderModel.getAll();
-    const orders: Array<object> = [];
+    const orders: Array<Orders> = [];
     await Promise.all(allOrders.map(async (order) => {
       const productsIds: Array<number> = [];
       const products = await this.productModel.getAllProductsIds(order.id);

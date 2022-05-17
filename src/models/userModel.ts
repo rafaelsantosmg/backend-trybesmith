@@ -8,6 +8,15 @@ export default class UserModel {
     this.connection = connection;
   }
 
+  public async getUser(user: User): Promise<User[]> {
+    const { username, password } = user;
+    const [findUser] = await this.connection.execute(
+      'SELECT * FROM Trybesmith.Users WHERE username = ? AND password = ?',
+      [username, password],
+    );
+    return findUser as User[];
+  }
+
   public async getAllProducts(user: User): Promise<User[]> {
     const { username } = user;
     const [findUser] = await this.connection.execute(
