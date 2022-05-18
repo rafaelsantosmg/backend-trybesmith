@@ -16,3 +16,10 @@ export const validateLogin = Joi.object({
   username: Joi.string().required(),
   password: Joi.string().required(),
 });
+
+export const validateProductIds = Joi.object().keys({
+  productsIds: Joi.array().items(Joi.number().greater(0).required()).required().messages({
+    'array.includesRequiredUnknowns': '"productsIds" must include only numbers',
+  }),
+  user: Joi.object(),
+});

@@ -3,6 +3,17 @@ import OrderModel from '../models/ordersModel';
 import ProductModel from '../models/productModel';
 import Orders from '../interfaces/ordersInterface';
 
+type Body = {
+  productsIds: Array<number>;
+  user: {
+    id: number;
+    username: string;
+    classe: string;
+    level: number;
+    password: string;
+  }
+};
+
 export default class OrdersService {
   public orderModel: OrderModel;
 
@@ -23,5 +34,14 @@ export default class OrdersService {
       return orders.push({ ...order, productsIds });
     }));
     return orders as Orders[];
+  }
+
+  public async create(body: Body) {
+    const { productsIds, user } = body;
+    const order = await this.orderModel.create(user.id);
+    await Promise.all(productsIds.map(async (productId) => {
+      await this.productModel.update(productId, order);
+    }));
+    return { userId: user.id, productsIds };
   }
 }
